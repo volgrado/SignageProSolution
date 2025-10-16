@@ -8,6 +8,10 @@
 		<Platforms>AnyCPU;x64</Platforms>
 	</PropertyGroup>
 
+	<ItemGroup>
+	  <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+	</ItemGroup>
+
 	<!-- Referencias a las librerías de AutoCAD -->
 	<!-- NOTA: Asegúrate de que esta ruta coincida con la de tu instalación de AutoCAD 2025 -->
 	<ItemGroup>

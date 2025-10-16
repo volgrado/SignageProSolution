@@ -31,8 +31,14 @@
 		<ProjectReference Include="..\SignagePro.Infrastructure\SignagePro.Infrastructure.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <None Update="signals.json">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	</ItemGroup>
+
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
-		<Exec Command="xcopy &quot;$(TargetDir)$(TargetFileName)&quot; &quot;$(SolutionDir)bin\Release\&quot; /Y /I" />
+		<Exec Command="xcopy &quot;$(TargetDir)$(TargetFileName)&quot; &quot;$(SolutionDir)bin\Release\&quot; /Y /I&#xD;&#xA;xcopy &quot;$(ProjectDir)signals.json&quot; &quot;$(SolutionDir)bin\Release\&quot; /Y /I" />
 	</Target>
 
 </Project>

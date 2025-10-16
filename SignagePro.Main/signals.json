@@ -1,0 +1,26 @@
+[
+  {
+    "Code": "S-01",
+    "Name": "Señal de Stop (Desde JSON)",
+    "Width": 65,
+    "Height": 65
+  },
+  {
+    "Code": "R-101",
+    "Name": "Velocidad Máxima 50 (Desde JSON)",
+    "Width": 75,
+    "Height": 75
+  },
+  {
+    "Code": "P-21",
+    "Name": "Peligro Niños (Desde JSON)",
+    "Width": 85,
+    "Height": 85
+  },
+  {
+    "Code": "CUSTOM-01",
+    "Name": "Nueva Señal Personalizada",
+    "Width": 120,
+    "Height": 40
+  }
+]
