@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<!-- Target Framework base. No depende de Windows ni de ninguna plataforma específica. -->
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<Platforms>AnyCPU;x64</Platforms>
+	</PropertyGroup>
+
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+	  <Exec Command="xcopy &quot;$(TargetDir)$(TargetFileName)&quot; &quot;$(SolutionDir)bin\Release\&quot; /Y /I" />
+	</Target>
+
+	<!-- ESTE PROYECTO NO TIENE NINGUNA REFERENCIA A AUTOCAD. ESTO ES FUNDAMENTAL. -->
+
+</Project>

@@ -1,0 +1,36 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0-windows</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<IsAutoCADPlugin>true</IsAutoCADPlugin>
+		<Platforms>AnyCPU;x64</Platforms>
+	</PropertyGroup>
+
+	<!-- Referencias a las librerías de AutoCAD -->
+	<!-- NOTA: Asegúrate de que esta ruta coincida con la de tu instalación de AutoCAD 2025 -->
+	<ItemGroup>
+		<Reference Include="accoremgd">
+			<HintPath>C:\Program Files\Autodesk\AutoCAD 2025\accoremgd.dll</HintPath>
+			<Private>false</Private>
+		</Reference>
+		<Reference Include="Acdbmgd">
+			<HintPath>C:\Program Files\Autodesk\AutoCAD 2025\acdbmgd.dll</HintPath>
+			<Private>false</Private>
+		</Reference>
+		<Reference Include="Acmgd">
+			<HintPath>C:\Program Files\Autodesk\AutoCAD 2025\acmgd.dll</HintPath>
+			<Private>false</Private>
+		</Reference>
+	</ItemGroup>
+
+	<!-- Infrastructure depende del Core para conocer los "contratos" que debe implementar -->
+	<ItemGroup>
+		<ProjectReference Include="..\SignagePro.Core\SignagePro.Core.csproj" />
+	</ItemGroup>
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+	  <Exec Command="xcopy &quot;$(TargetDir)$(TargetFileName)&quot; &quot;$(SolutionDir)bin\Release\&quot; /Y /I" />
+	</Target>
+
+</Project>
