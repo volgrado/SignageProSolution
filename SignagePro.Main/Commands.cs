@@ -5,6 +5,7 @@ using SignagePro.Infrastructure.Repositories;
 using SignagePro.Main.UI;
 
 [assembly: CommandClass(typeof(SignagePro.Main.Commands))]
+[assembly: CommandClass(typeof(SignagePro.Main.SignageGenerator))]
 namespace SignagePro.Main
 {
     public class Commands
