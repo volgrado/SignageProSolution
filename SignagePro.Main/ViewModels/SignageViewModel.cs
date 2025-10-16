@@ -23,8 +23,13 @@ namespace SignagePro.Main.ViewModels
             get => _selectedSignal;
             set
             {
-                _selectedSignal = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedSignal)));
+                if (_selectedSignal != value)
+                {
+                    _selectedSignal = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedSignal)));
+                    // Notificar que la condición de CanExecute puede haber cambiado
+                    (CreateSignalCommand as RelayCommand)?.RaiseCanExecuteChanged();
+                }
             }
         }
 
@@ -40,29 +45,36 @@ namespace SignagePro.Main.ViewModels
         {
             if (SelectedSignal != null)
             {
-                // CORRECCIÓN: Se llama al nuevo método, pasando el objeto completo.
                 _autocadAdapter.DrawSignal(SelectedSignal);
             }
         }
     }
 
-    // Clase de ayuda para implementar ICommand
+    // Clase de ayuda para implementar ICommand de forma sencilla
     public class RelayCommand : ICommand
     {
         private readonly Action _execute;
         private readonly Func<bool>? _canExecute;
+
         public event EventHandler? CanExecuteChanged
         {
             add { CommandManager.RequerySuggested += value; }
             remove { CommandManager.RequerySuggested -= value; }
         }
+
         public RelayCommand(Action execute, Func<bool>? canExecute = null)
         {
-            _execute = execute;
+            _execute = execute ?? throw new ArgumentNullException(nameof(execute));
             _canExecute = canExecute;
         }
+
         public bool CanExecute(object? parameter) => _canExecute == null || _canExecute();
+
         public void Execute(object? parameter) => _execute();
+
+        public void RaiseCanExecuteChanged()
+        {
+            CommandManager.InvalidateRequerySuggested();
+        }
     }
 }
-

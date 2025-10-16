@@ -4,7 +4,7 @@ using SignagePro.Infrastructure.Adapters;
 using SignagePro.Main.UI;
 
 // Se añade un alias para resolver la ambigüedad con System.Windows.Forms.Application
-using AcadApplication = Autodesk.AutoCAD.ApplicationServices.Application;
+using AcadApplication = Autodesk.AutoCAD.ApplicationServices.Core.Application;
 
 [assembly: CommandClass(typeof(SignagePro.Main.Commands))]
 
@@ -19,10 +19,15 @@ namespace SignagePro.Main
         {
             if (_paletteManager == null)
             {
+                // CORRECCIÓN: Se instancian los servicios necesarios.
                 var calculationService = new SignageCalculationService();
                 var autocadAdapter = new AutoCADAdapter();
+
+                // CORRECCIÓN: Se pasan los servicios al constructor del PaletteManager.
                 _paletteManager = new PaletteManager(calculationService, autocadAdapter);
             }
+
+            // CORRECCIÓN: El método para mostrar la paleta se llama 'Show'.
             _paletteManager.Show();
         }
 
@@ -41,7 +46,8 @@ namespace SignagePro.Main
 
             if (signalData != null)
             {
-                autocadAdapter.DrawRectangle(signalData.Width, signalData.Height, 1); // 1 = Red
+                // CORRECCIÓN: Se utiliza el método 'DrawSignal' definido en la interfaz IAutoCADAdapter.
+                autocadAdapter.DrawSignal(signalData);
                 editor.WriteMessage($"\n¡Señal '{signalData.Name}' creada exitosamente con una altura de {signalData.Height} unidades!");
             }
             else
@@ -51,4 +57,3 @@ namespace SignagePro.Main
         }
     }
 }
-

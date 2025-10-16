@@ -7,6 +7,7 @@
 		<UseWindowsForms>true</UseWindowsForms>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
+		<Platforms>AnyCPU;x64</Platforms>
 		<IsAutoCADPlugin>true</IsAutoCADPlugin>
 	</PropertyGroup>
 
@@ -29,6 +30,10 @@
 		<ProjectReference Include="..\SignagePro.Core\SignagePro.Core.csproj" />
 		<ProjectReference Include="..\SignagePro.Infrastructure\SignagePro.Infrastructure.csproj" />
 	</ItemGroup>
+
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+		<Exec Command="xcopy &quot;$(TargetDir)$(TargetFileName)&quot; &quot;$(SolutionDir)bin\Release\&quot; /Y /I" />
+	</Target>
 
 </Project>
 

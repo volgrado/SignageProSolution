@@ -1,9 +1,7 @@
-﻿using Autodesk.AutoCAD.ApplicationServices;
-using Autodesk.AutoCAD.Windows;
+﻿using Autodesk.AutoCAD.Windows;
 using SignagePro.Core;
 using SignagePro.Core.Contracts;
 using SignagePro.Main.ViewModels;
-using System;
 
 namespace SignagePro.Main.UI
 {
@@ -33,7 +31,7 @@ namespace SignagePro.Main.UI
                 var viewModel = new SignageViewModel(_calculationService, _autocadAdapter);
                 var paletteView = new SignagePalette(viewModel);
 
-                // CORRECCIÓN: Usamos AddVisual() para añadir un control WPF.
+                // Se utiliza AddVisual para alojar el control WPF en la paleta.
                 _paletteSet.AddVisual("Señalización", paletteView);
             }
 
@@ -42,4 +40,3 @@ namespace SignagePro.Main.UI
         }
     }
 }
-
